@@ -53,8 +53,8 @@ Call option and it defivatives in terms of the strike are
 \end{eqnarray}
 
 \section{Derivations of the Dupire equation}
-\subsection{Simple Derivation}
-Derman and Kani gave a simple derivation \cite{derman1994riding}.
+\subsection{The original derivation by using Fokker-Planck equation}
+Dupire \cite{dupire1994pricing, dupire1997pricing} and Derman and Kani \cite{derman1994riding} gave a simple derivation.
 \subsection{Sophisticated Derivation by using SDE}
 This derivation was given by Gatheral \cite{gatheral2011volatility}.
 The stochastic difference of call is
@@ -84,9 +84,9 @@ We get
 	\frac{dC}{dT} = \frac{1}{2} \frac{\partial^2 C}{\partial K^2}\BoldMath{E}\left[\sigma^2(S_T, T, \cdots)| S_T = K\right]K^2.
 \end{equation}
 
-\subsection{Using Fokker-Planck equation}
-
-Using Fokker-Planck equation.
+\appendix
+\section{Fokker-Planck equation}
+We derive the Fokker-Planck equation.
 
 \bibliography{LocalVolatility.bib}
 \end{document}
