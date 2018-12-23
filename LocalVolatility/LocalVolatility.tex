@@ -1,0 +1,92 @@
+\documentclass{article}
+\usepackage[margin=0.5in]{geometry}
+\usepackage[UKenglish]{babel}
+\usepackage[UKenglish]{isodate}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{bm}%BoldMath
+\usepackage{url}
+\usepackage{hyperref}
+
+%%%%bra-ket%%%%
+\newcommand{\bra}{\langle}
+\newcommand{\ket}{\rangle}
+%%%%Fig.%%%%
+\renewcommand{\figurename}{Fig.}
+%%%%large order%%%%
+\newcommand{\order}{{\mathcal{O}}}
+%%%%partial%%%%
+\newcommand{\del}{\partial}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% font                               %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%real pert%%%%
+\renewcommand{\Re}{\text{Re}}
+%%%%imaginary pert%%%%
+\renewcommand{\Im}{\text{Im}}
+\newcommand{\nq}{\mathfrak{q}}
+\newcommand{\nw}{\mathfrak{w}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title{Local Volatility Model}
+\author{Masahiro Ohta}
+\date{\today}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+\maketitle
+%\tableofcontents
+\bibliographystyle{amsplain}
+
+\section{Setup}\label{sec:Setup}
+We assume the following asset process:
+\begin{equation}
+	dS_t = \sigma(S_t, t, \cdots) S_t dW_t~.
+\end{equation}
+Here, $\sigma(S_t, t, \cdots)$ is an adapted function that can have other adapted processes as arguments in addition to the asset price $S_t$.
+Call option and it defivatives in terms of the strike are
+\begin{eqnarray}
+	C(K) &=& \BoldMath{E}\left[\left(S_T -K\right)^+\right]~, \\
+	\frac{\partial C(K)}{\partial K} &=& -\BoldMath{E}\left[H\left(S_T -K\right)\right]~,\\
+	\frac{\partial^2 C(K)}{\partial K^2} &=& \BoldMath{E}\left[\delta\left(S_T -K\right)\right]~.
+\end{eqnarray}
+
+\section{Derivations of the Dupire equation}
+\subsection{Simple Derivation}
+Derman and Kani gave a simple derivation \cite{derman1994riding}.
+\subsection{Sophisticated Derivation by using SDE}
+This derivation was given by Gatheral \cite{gatheral2011volatility}.
+The stochastic difference of call is
+\begin{eqnarray}
+	dC &=& d\BoldMath{E}\left[ \left(S_T -K\right)^+\right] \\
+		 &=&  \BoldMath{E}\left[d\left(S_T -K\right)^+\right].
+\end{eqnarray}
+
+\begin{eqnarray}
+	f  (S_T) &=& (S_T -K)^+ = (S_T -K) H(S_T - K)~, \\
+	f' (S_T) &=& H(S_T - K) + \underbrace{(S_T -K) \delta(S_T -K)}_{=0}~, \\
+	f''(S_T) &=& \delta(S_T -K)^+~,
+\end{eqnarray}
+
+\begin{eqnarray}
+	d\left(S_T -K\right)^+ &=& f'(S_T)dS_T + \frac{1}{2} f''(S_T)dS_T^2 \\
+	                       &=& H(S_T-K)\sigma(S_T, T, \cdots)S_T dW_t + \frac{1}{2} \delta (S_T-K) \sigma^2(S_T, T, \cdots)S_T^2 dt.
+\end{eqnarray}
+
+\begin{eqnarray}
+	\BoldMath{E}\left[d\left(S_T -K\right)^+\right]
+	  &=& \frac{1}{2} \BoldMath{E}\left[\delta (S_T-K) \sigma^2(S_T, T, \cdots)S_T^2 \right] dT \\
+		&=& \frac{1}{2} \BoldMath{E}\left[\delta (S_T-K)\right] \cdot \BoldMath{E}\left[\sigma^2(S_T, T, \cdots)| S_T = K\right] K^2dT.
+\end{eqnarray}
+We get
+\begin{equation}
+	\frac{dC}{dT} = \frac{1}{2} \frac{\partial^2 C}{\partial K^2}\BoldMath{E}\left[\sigma^2(S_T, T, \cdots)| S_T = K\right]K^2.
+\end{equation}
+
+\subsection{Using Fokker-Planck equation}
+
+Using Fokker-Planck equation.
+
+\bibliography{LocalVolatility.bib}
+\end{document}
